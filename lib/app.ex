@@ -41,6 +41,23 @@ defmodule IrcBot.App do
         :error
     end
   end
+
+  @doc """
+  Handles a message
+  """
+  def handle(socket, [_, '376' | _]) do
+    # get channels somehow
+    channels = ["#testbot"]
+    Enum.each(channels, fn(channel) ->
+      send(socket, "JOIN", channel)
+    end)
+
+    :ok
+  end
+
+  def handle(_, _) do
+    :ok
+  end
   
   defp send(s, opcode, msg) when is_list(msg) do
     send(s, opcode, join_strings(msg))
@@ -52,6 +69,7 @@ defmodule IrcBot.App do
     :ok
   end
 
+  # todo move me
   defp join_strings(strs, glue // " ") do
     Enum.reduce(strs, fn(str, acc) ->
       acc <> (if acc, do: glue, else: "") <> str
