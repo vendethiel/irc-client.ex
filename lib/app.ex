@@ -8,13 +8,13 @@ defmodule IrcBot.App do
   @doc """
   Connects to a given server
   """
-  def connect({:address, address, :port, port, :nickname, nickname}) do
-    case :gen_tcp.connect(address, port, [{:packet, :line}]) do
+  def connect(config) do
+    case :gen_tcp.connect(config[:address], config[:port], [{:packet, :line}]) do
       {:ok, socket} ->
         IO.puts("Connected. Logging in ...")
-        send(socket, "NICK", nickname)
-        send(socket, "USER", [nickname, address, "alsotodo", ":irc-client"])
-        IO.puts("Logged as in #{nickname}.")
+        send(socket, "NICK", config[:nickname])
+        send(socket, "USER", [config[:nickname], config[:address], "alsotodo", ":irc-client"])
+        IO.puts("Logged as in #{config[:nickname]}.")
 
         {:ok, socket}
 

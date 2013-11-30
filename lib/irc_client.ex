@@ -6,15 +6,18 @@ defmodule IrcBot.Client do
   @doc """
   Start the bot.
   """
-  def start(_type, _args) do
+  def start(:normal, []) do
+    IO.puts "Starting ..."
     # read config etc
-    {:ok, socket} = App.connect({
-      :address, "irc.freenode.net",
-      :port, 6667,
-      :nickname, "test"
-    })
+    config = [
+      address: "irc.freenode.net",
+      port: 6667,
+      nickname: "test"
+    ]
+    {:ok, socket} = IrcBot.App.connect(config)
 
     handle(socket)
+    :ok
   end
 
   defp handle(socket) do
