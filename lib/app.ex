@@ -3,8 +3,6 @@ defmodule IrcBot.App do
   Client App
   """
 
-  use Application.Behaviour
-
   @doc """
   Connects to a given server
   """
@@ -19,7 +17,7 @@ defmodule IrcBot.App do
         {:ok, socket}
 
       {:error, reason} ->
-        IO.puts("Connection refused : " <> reason)
+        IO.puts("Connection refused : #{reason}")
 
         {:error, reason}
     end
@@ -70,7 +68,7 @@ defmodule IrcBot.App do
   end
 
   # todo move me
-  defp join_strings(strs, glue // " ") do
+  defp join_strings(strs, glue \\ " ") do
     Enum.reduce(strs, fn(str, acc) ->
       acc <> (if acc, do: glue, else: "") <> str
     end)
