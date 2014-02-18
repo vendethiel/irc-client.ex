@@ -20,7 +20,6 @@ defmodule IrcBot.Client do
     IO.puts "Connected"
 
     handle(socket)
-    :ok
   end
 
   defp handle(socket) do
