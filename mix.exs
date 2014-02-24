@@ -10,7 +10,7 @@ defmodule IrcBot.Mixfile do
 
   # Configuration for the OTP application
   def application do
-    [mod: { IrcBot.Client, [] }]
+    [mod: { IrcBot.App, [] }]
   end
 
   defp deps do
