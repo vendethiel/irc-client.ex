@@ -1,16 +1,31 @@
 defmodule IrcBot do
+  use Supervisor.Behaviour
+
   @doc """
   Launches the supervisor
   """
   def start! do
-    :supervisor.start_link({:local, :exirc}, __MODULE__, [])
-    {:ok, []}
+    :supervisor.start_link({:local, :ircbot}, __MODULE__, [])
+    #:gen_server.start_link(__MODULE__, [], [])
+    #{:ok, []}
+  end
+
+  @doc """
+  Start a new Bot Client
+  """
+  def start_client
+    :supervisor.start_child(:ircbot, worker(IrcBot.Client, []))
   end
   
   @doc """
   Called by supervisor on `start_link`
   """
   def init(_) do
+    supervise [], strategy: :one_for_one
+  end
+
+  # TEMP
+  defp foo do
     # read config etc
     config = [
       address: "irc.freenode.net",
