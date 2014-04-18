@@ -11,10 +11,10 @@ defmodule IrcBot do
   end
 
   @doc """
-  Start a new Bot Client
+  Start a new Bot
   """
-  def start_client
-    :supervisor.start_child(:ircbot, worker(IrcBot.Client, []))
+  def start_client do
+    :supervisor.start_child(:ircbot, worker(IrcBot.Bot, []))
   end
   
   @doc """
