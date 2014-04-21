@@ -1,7 +1,16 @@
 defmodule IrcBot.Bot do
   @moduledoc """
-  Client App
+  Bot Client
   """
+  # XXX Change name
+
+  @doc """
+  Starts a new Client to be connected to an IRC server
+  """
+  def start!(options \\ []) do
+    start_link(options)
+  end
+
 
   @doc """
   Connects to a given server
